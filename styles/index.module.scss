@@ -1,0 +1,35 @@
+.item{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-bottom: 1px solid rgb(37, 37, 37);
+    padding: 2rem;
+    .date{
+        width: 100%;
+        font-size: 6rem;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .content{
+        height: 0;
+        overflow: hidden;
+        width: 500px;
+        align-self: flex-end;
+        b{
+            font-size: 18px;
+        }
+        p{
+            font-size: 12px;
+        }
+        span{
+            font-style: italic;
+        }
+    }
+
+    &:hover{
+        background-color: rgb(13, 13, 13);
+        .content{
+            height: auto;
+        }
+    }
+}
+
