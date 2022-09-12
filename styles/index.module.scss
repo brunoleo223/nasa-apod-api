@@ -32,13 +32,30 @@
     }
 
     &:hover{
-        background-color: rgb(13, 13, 13);
+        background-color: #161b22;
         .date{
             opacity: 1;
         }
         .content{
             opacity: 1;
-            height: 350px;
+            height: 400px;
+        }
+    }
+    .share{
+        padding: 0;
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        li, a{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        li{
+            border-bottom: 1px solid transparent;
+            &:hover{
+                border-color: #fff;
+            }
         }
     }
 }

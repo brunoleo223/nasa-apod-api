@@ -18,17 +18,19 @@ export function Sidebar(){
                 <Image src='/logo.webp' width={200} height={170} alt="Logo Nasa" />
             </div>
 
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, aperiam.</p>
+            <p>
+                Select the month and year to see all photos. You can also see your birthday photo.
+            </p>
 
             <form className={styles.form}>
                 <div className={styles.group}>
-                    <label htmlFor="year">Year</label>
+                    <label htmlFor="year">Year*</label>
                     <select id="year" name='year'>
                         {years.map((i) => <option value={i} key={i}>{i}</option>)}
                     </select>
                 </div>
                 <div className={styles.group}>
-                    <label htmlFor="month">Mounth</label>
+                    <label htmlFor="month">Mounth*</label>
                     <select name="month" id="month">
                         <option value="01">Jan</option>
                         <option value="02">Feb</option>

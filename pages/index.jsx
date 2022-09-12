@@ -1,6 +1,9 @@
 import Sidebar from '../components/Sidebar';
 import styles from '../styles/index.module.scss'
 
+import { TwitterLogo, Download } from "phosphor-react";
+
+
 /*
   1. carregar dados do localstorage
   2. se não tiver os dados, carregar mes atual da api e salvar no localstorage
@@ -22,6 +25,11 @@ export default function Home({data}) {
                 <b>{itemDate.toLocaleDateString("en-US", options)}</b>
                 <p>{item.explanation}</p>
                 <span>{item.copyright ? `by ${item.copyright}` : ''}</span>
+                <ul className={styles.share}>
+                  <li><TwitterLogo />
+                  <a href={`https://twitter.com/intent/tweet?text=${item.media_type === 'video' ? 'Watch this video' : 'See this photo'} from ${itemDate.toLocaleDateString("en-US", options)}&url=${item.url}`}> Twitter</a></li>
+                  <li><a href={item.url}><Download /> Download</a></li>
+                </ul>
               </div>
             </a>
           </div>
