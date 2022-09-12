@@ -5,4 +5,50 @@
     position: sticky;
     top: 0;
     border-right: 1px solid rgb(37, 37, 37);
+    padding: 30px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    padding-top: 30px;
+
+    .logo{
+        padding-left: 10px;
+    }
+
+    .form{
+        width: 100%;
+        .group{
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            label{
+                margin-right: 5px;
+            }
+            select{
+                flex: 1;
+                background-color: transparent;
+                border: 1px solid rgb(44, 44, 44);
+                border-radius: 3px;
+                padding: 10px;
+            }
+        }
+        button{
+            width: 100%;
+            padding: 10px;
+            background-color: #0b3d92;
+            border: 0;
+            border-radius: 3px;
+            cursor: pointer;
+            
+            &:hover{
+                background-color: #135ddd;
+            }
+            &:active{
+                background-color: #093581;
+            }
+        }
+    }
 }

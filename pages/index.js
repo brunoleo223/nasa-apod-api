@@ -9,7 +9,7 @@ import styles from '../styles/index.module.scss'
 
 export default function Home({data}) {
   const options = {  year: 'numeric', month: 'long', day: 'numeric' };
-  console.log(data)
+  
   return (
     <div className={styles.wrapper}>
       <Sidebar />
