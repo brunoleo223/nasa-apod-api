@@ -2,9 +2,12 @@ import Sidebar from '../components/Sidebar';
 import styles from '../styles/index.module.scss'
 
 import { TwitterLogo, Download, YoutubeLogo } from "phosphor-react";
+import { useState } from 'react';
 
-export default function Home({data}) {
+export default function Home({content}) {
   const options = {  year: 'numeric', month: 'long', day: 'numeric' };
+  const [data, setData] = useState(content);
+  const [loading, setLoading] = useState(true);
 
   function imageUrl(type, url){
     if(type === 'image') return url;
@@ -13,7 +16,13 @@ export default function Home({data}) {
   
   return (
     <div className={styles.wrapper}>
-      <Sidebar />
+      <Sidebar data={data} setData={setData} setLoading={setLoading} />
+      {!loading ? 
+
+      <div>Carregando</div>
+
+      :
+      
       <div className={styles.itens}>
       {[...data].reverse().map((item) => { 
         
@@ -43,14 +52,18 @@ export default function Home({data}) {
           <div className="venues-img"></div>
         </div>
       </div>
+
+      }
     </div>
   );
 };
 
 export async function getServerSideProps() {
+  const today = new Date();
+  const priorDate = new Date(new Date().setDate(today.getDate() - 30));
   
-  const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API}&start_date=2022-09-02&end_date=2022-09-11`);
-  const data = await res.json();
+  const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API}&end_date=${today.toISOString().split('T')[0]}&start_date=${priorDate.toISOString().split('T')[0]}`);
+  const content = await res.json();
 
-  return { props: { data } };
+  return { props: { content } };
 }

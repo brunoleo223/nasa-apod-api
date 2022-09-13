@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './style.module.scss'
 
-export function Sidebar(){
+export function Sidebar({data, setData, setLoading}){
     let maxYear = new Date().getFullYear();
     let minYear = 1995;
 
@@ -11,6 +11,15 @@ export function Sidebar(){
         years.push(maxYear)
         maxYear--;
     }
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        setLoading(false)
+        const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=uVdyx0oLdTBzwrKV7T3UQ4ZHgPLr3jiRr9vVEaDY&start_date=2022-08-02&end_date=2022-09-11`);
+        const content = await res.json();
+        setData(content)
+        setLoading(true)
+    };
 
     return (
         <div className={styles.sidebar}>
@@ -82,7 +91,7 @@ export function Sidebar(){
                         <option value="31">31</option>
                     </select>
                 </div>
-                <button>GO!</button>
+                <button onClick={submitHandler}>GO!</button>
             </form>
         </div>
     )
