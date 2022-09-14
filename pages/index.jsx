@@ -16,10 +16,10 @@ export default function Home({content}) {
   
   return (
     <div className={styles.wrapper}>
-      <Sidebar data={data} setData={setData} setLoading={setLoading} />
+      <Sidebar data={data} setData={setData} setLoading={setLoading} loading={loading} />
       {!loading ? 
 
-      <div>Carregando</div>
+      <div className={styles.loading}>Loading...</div>
 
       :
       

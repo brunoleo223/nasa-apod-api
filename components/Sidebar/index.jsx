@@ -1,9 +1,11 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import styles from './style.module.scss'
 
-export function Sidebar({data, setData, setLoading}){
+export function Sidebar({data, setData, setLoading, loading}){
     let maxYear = new Date().getFullYear();
     let minYear = 1995;
+    const [validDate, setValidDate] = useState(false);
 
     const years = []
 
@@ -14,9 +16,29 @@ export function Sidebar({data, setData, setLoading}){
 
     const submitHandler = async (e) => {
         e.preventDefault();
+
+        
         setLoading(false)
-        const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=uVdyx0oLdTBzwrKV7T3UQ4ZHgPLr3jiRr9vVEaDY&start_date=2022-08-02&end_date=2022-09-11`);
+        setValidDate(false)
+        const year = e.target.year.value;
+        const month = e.target.month.value;
+        const day = 1;
+        
+        const date = `${year}-${month}-${day}`;
+
+        if(new Date(date) > new Date()){
+            setLoading(true)
+            setValidDate(true)
+            return;
+        }
+        
+        const start = new Date(date).toISOString().split('T')[0];
+        const end = new Date(`${year}-${month}-${new Date(year, month, 0).getDate()}`).toISOString().split('T')[0];
+        
+        const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=uVdyx0oLdTBzwrKV7T3UQ4ZHgPLr3jiRr9vVEaDY&start_date=${start}&end_date=${end}`);
+        console.log(res.body)
         const content = await res.json();
+
         setData(content)
         setLoading(true)
     };
@@ -31,7 +53,9 @@ export function Sidebar({data, setData, setLoading}){
                 Select the month and year to see all photos. You can also see your birthday photo.
             </p>
 
-            <form className={styles.form}>
+            {validDate && <span>Select a valid date</span>}
+
+            <form className={styles.form} onSubmit={submitHandler}>
                 <div className={styles.group}>
                     <label htmlFor="year">Year*</label>
                     <select id="year" name='year'>
@@ -55,43 +79,7 @@ export function Sidebar({data, setData, setLoading}){
                         <option value="12">Dec</option>
                     </select>
                 </div>
-                <div className={styles.group}>
-                    <label htmlFor="day">Day</label>
-                    <select name="day" id='day'>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                    </select>
-                </div>
-                <button onClick={submitHandler}>GO!</button>
+                {loading && <button>GO!</button>}
             </form>
         </div>
     )
