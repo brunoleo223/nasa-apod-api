@@ -31,9 +31,11 @@ export default function Home({content}) {
       return (
         <div key={item.date} className={styles.item}>
           <a className="venues-item" data-img={imageUrl(item.media_type, item.url)}>
-            <div className={styles.date}>{item.title}</div>
+            <div className={styles.date}>
+              <span><b>{itemDate.toLocaleDateString("en-US", options)}</b></span>
+              {item.title}
+            </div>
             <div className={styles.content}>
-              <b>{itemDate.toLocaleDateString("en-US", options)}</b>
               <p>{item.explanation}</p>
               <span>{item.copyright ? `by ${item.copyright}` : ''}</span>
               <ul className={styles.share}>
