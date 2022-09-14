@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import styles from './style.module.scss'
+import { GithubLogo } from "phosphor-react";
 
 export function Sidebar({data, setData, setLoading, loading}){
     let maxYear = new Date().getFullYear();
@@ -81,6 +82,9 @@ export function Sidebar({data, setData, setLoading, loading}){
                 </div>
                 {loading && <button>GO!</button>}
             </form>
+            <footer>
+                <a href="https://github.com/brunoleo223/nasa-apod-api" target="_blank" rel="noreferrer"><GithubLogo /> Github Repository</a>
+            </footer>
         </div>
     )
 }
