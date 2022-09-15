@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styles from './style.module.scss'
 import { GithubLogo } from "phosphor-react";
 import submitHandler from '../../utils/submitHandler';
+import SwitchMode from '../SwitchMode';
 
 export function Sidebar({setData, setLoading, loading, currentMonthData}){
     let maxYear = new Date().getFullYear();
@@ -17,7 +18,7 @@ export function Sidebar({setData, setLoading, loading, currentMonthData}){
     }
 
     return (
-        <div className={styles.sidebar}>
+        <aside className={styles.sidebar}>
             <div className={styles.logo}>
                 <Image src='/logo.webp' width={200} height={170} alt="Logo Nasa" />
             </div>
@@ -56,10 +57,11 @@ export function Sidebar({setData, setLoading, loading, currentMonthData}){
                 {loading && <button>GO!</button>}
             </form>
             
+            <SwitchMode />
             <footer>
                 <a href="https://github.com/brunoleo223/nasa-apod-api" target="_blank" rel="noreferrer"><GithubLogo /> Github Repository</a>
             </footer>
-        </div>
+        </aside>
     )
 }
 

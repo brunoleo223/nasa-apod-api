@@ -1,9 +1,11 @@
 import Sidebar from '../components/Sidebar';
 import styles from '../styles/index.module.scss'
-
 import { TwitterLogo, Download, YoutubeLogo } from "phosphor-react";
 import { useState } from 'react';
 import Head from 'next/head';
+import SwitchMode from '../components/SwitchMode';
+import { useDarkMode } from 'next-dark-mode'
+
 
 export default function Home({content}) {
   
@@ -11,6 +13,7 @@ export default function Home({content}) {
   const [data, setData] = useState(content);
   const [currentMonthData] = useState(content);
   const [loading, setLoading] = useState(true);
+  const { darkModeActive } = useDarkMode()
   
   function imageUrl(type, url){
     if(type === 'image') return url;
@@ -18,10 +21,10 @@ export default function Home({content}) {
     if(url.includes('youtube')){
       return `https://img.youtube.com/vi/${url.split('embed/')[1].split('?')[0]}/0.jpg`;
     } 
-    
     return '';
   }
-  
+
+
   return (
     <>
     <Head>
@@ -32,7 +35,7 @@ export default function Home({content}) {
       <meta property="og:image:width" content="710" />
       <meta property="og:image:height" content="533" />
     </Head>
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${darkModeActive ? 'dark' : 'light'}`}>
       <Sidebar setData={setData} setLoading={setLoading} loading={loading} currentMonthData={currentMonthData} />
       {!loading ? 
 
@@ -46,7 +49,7 @@ export default function Home({content}) {
       const itemDate = new Date(item.date); 
     
       return (
-        <div key={item.date} className={styles.item}>
+        <div key={item.date} className={`${styles.item} item-lg`}>
           <a className="venues-item" data-img={imageUrl(item.media_type, item.url)}>
             <div className={styles.date}>
               <span><b>{itemDate.toLocaleDateString("en-US", options)}</b></span>

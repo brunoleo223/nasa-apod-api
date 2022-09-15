@@ -15,17 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: #02040a;
-  }
-}
-
-
 .venues {
 
   &-img {
@@ -48,4 +37,27 @@ a {
     visibility: hidden;
     padding-bottom: 25vw;
   }
+}
+
+.light {
+  color: #24292f !important;
+  background: #f6f8fa !important;
+  *{
+    border-color: rgb(118, 118, 118) !important;
+  }
+
+  aside{
+    background-color: #24292f;
+    color: #fff;
+    select, button{
+      color: #fff;
+    }
+  }
+
+  .item-lg{
+    &:hover{
+      background-color: #fff;
+    }
+  }
+
 }
