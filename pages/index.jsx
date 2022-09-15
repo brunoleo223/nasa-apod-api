@@ -3,6 +3,7 @@ import styles from '../styles/index.module.scss'
 
 import { TwitterLogo, Download, YoutubeLogo } from "phosphor-react";
 import { useState } from 'react';
+import Head from 'next/head';
 
 export default function Home({content}) {
   
@@ -22,6 +23,15 @@ export default function Home({content}) {
   }
   
   return (
+    <>
+    <Head>
+      <title>Nasa APOD</title>
+      <meta name="description" content="Using APOD Api from NASA to show sky pictures daily" />
+      <meta property="og:image" content="https://apod.nasa.gov/apod/image/2202/Earthrise1_Apollo8AndersWeigang_960.jpg" />
+      <meta property="og:image:type" content="image/jpeg" />
+      <meta property="og:image:width" content="710" />
+      <meta property="og:image:height" content="533" />
+    </Head>
     <div className={styles.wrapper}>
       <Sidebar setData={setData} setLoading={setLoading} loading={loading} currentMonthData={currentMonthData} />
       {!loading ? 
@@ -68,6 +78,7 @@ export default function Home({content}) {
 
       }
     </div>
+    </>
   );
 };
 
