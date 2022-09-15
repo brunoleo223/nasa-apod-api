@@ -11,12 +11,17 @@ export default function Home({content}) {
 
   function imageUrl(type, url){
     if(type === 'image') return url;
-    return `https://img.youtube.com/vi/${url.split('embed/')[1].split('?')[0]}/0.jpg`;
+    
+    if(url.includes('youtube')){
+      return `https://img.youtube.com/vi/${url.split('embed/')[1].split('?')[0]}/0.jpg`;
+    } 
+    
+    return '';
   }
   
   return (
     <div className={styles.wrapper}>
-      <Sidebar data={data} setData={setData} setLoading={setLoading} loading={loading} />
+      <Sidebar setData={setData} setLoading={setLoading} loading={loading} />
       {!loading ? 
 
       <div className={styles.loading}>Loading...</div>

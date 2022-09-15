@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './style.module.scss'
 import { GithubLogo } from "phosphor-react";
 
-export function Sidebar({data, setData, setLoading, loading}){
+export function Sidebar({setData, setLoading, loading}){
     let maxYear = new Date().getFullYear();
     let minYear = 1995;
     const [validDate, setValidDate] = useState(false);
@@ -18,9 +18,9 @@ export function Sidebar({data, setData, setLoading, loading}){
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        
         setLoading(false)
         setValidDate(false)
+
         const year = e.target.year.value;
         const month = e.target.month.value;
         const day = 1;
@@ -37,8 +37,8 @@ export function Sidebar({data, setData, setLoading, loading}){
         const end = new Date(`${year}-${month}-${new Date(year, month, 0).getDate()}`).toISOString().split('T')[0];
         
         const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=uVdyx0oLdTBzwrKV7T3UQ4ZHgPLr3jiRr9vVEaDY&start_date=${start}&end_date=${end}`);
-        console.log(res.body)
         const content = await res.json();
+        console.log(content)
 
         setData(content)
         setLoading(true)
