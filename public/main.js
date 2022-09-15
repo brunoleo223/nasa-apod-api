@@ -1,7 +1,7 @@
 
-  const allVenues = gsap.utils.toArray(".venues-item");
-  const venueImageWrap = document.querySelector(".venues-img-wrap");
-  const venueImage = document.querySelector(".venues-img");
+  let allVenues = gsap.utils.toArray(".venues-item");
+  let venueImageWrap = document.querySelector(".venues-img-wrap");
+  let venueImage = document.querySelector(".venues-img");
 
   function initVenues() {
     allVenues.forEach((link) => {
@@ -45,4 +45,9 @@
     initVenues();
   }
 
-  init();
+  setInterval(() => {
+    allVenues = gsap.utils.toArray(".venues-item");
+    venueImageWrap = document.querySelector(".venues-img-wrap");
+    venueImage = document.querySelector(".venues-img");
+    init();
+  }, 1000);
