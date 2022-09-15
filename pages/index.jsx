@@ -5,10 +5,12 @@ import { TwitterLogo, Download, YoutubeLogo } from "phosphor-react";
 import { useState } from 'react';
 
 export default function Home({content}) {
+  
   const options = {  year: 'numeric', month: 'long', day: 'numeric' };
   const [data, setData] = useState(content);
+  const [currentMonthData] = useState(content);
   const [loading, setLoading] = useState(true);
-
+  
   function imageUrl(type, url){
     if(type === 'image') return url;
     
@@ -21,7 +23,7 @@ export default function Home({content}) {
   
   return (
     <div className={styles.wrapper}>
-      <Sidebar setData={setData} setLoading={setLoading} loading={loading} />
+      <Sidebar setData={setData} setLoading={setLoading} loading={loading} currentMonthData={currentMonthData} />
       {!loading ? 
 
       <div className={styles.loading}>Loading...</div>
@@ -44,11 +46,15 @@ export default function Home({content}) {
               <p>{item.explanation}</p>
               <span>{item.copyright ? `by ${item.copyright}` : ''}</span>
               <ul className={styles.share}>
-                <li><TwitterLogo />
-                <a href={`https://twitter.com/intent/tweet?text=${item.media_type === 'video' ? 'Watch this video' : 'See this photo'} from ${itemDate.toLocaleDateString("en-US", options)}&url=${item.url}`}> Twitter</a></li>
-                <li><a href={item.url} target="_blank" rel="noreferrer">
-                  { item.media_type === 'video' ? <><YoutubeLogo /> Watch video</> : <><Download /> Download</>}  
-                </a></li>
+                <li>
+                  <TwitterLogo />
+                  <a href={`https://twitter.com/intent/tweet?text=${item.media_type === 'video' ? 'Watch this video' : 'See this photo'} from ${itemDate.toLocaleDateString("en-US", options)}&url=${item.url}`}> Twitter</a>
+                </li>
+                <li>
+                  <a href={item.url} target="_blank" rel="noreferrer">
+                    { item.media_type === 'video' ? <><YoutubeLogo /> Watch video</> : <><Download /> Download</>}  
+                  </a>
+                </li>
               </ul>
             </div>
           </a>
